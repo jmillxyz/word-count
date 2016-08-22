@@ -1,0 +1,9 @@
+# Mac garbage
+.DS_Store
+
+# Python cache
+*.pyc
+__pycache__/
+
+# Pytest cache
+.cache/
