@@ -1,48 +1,47 @@
-# Simple Distributed File Indexer
+# Indexer.py
 
-Our end goal is to create a multi-process, command-line indexer application
-that finds the top 10 words across a collection of documents. The outline below
-will assist you in developing it. You may use any programming language of your
-choice, but we suggest you use the one you are most comfortable with.
+[![Build Status](https://travis-ci.com/jondelmil/rackspace-interview.svg?token=DWs7Yq7X3tMvJwqPZewY&branch=master)](https://travis-ci.com/jondelmil/rackspace-interview)
 
-We only require that you complete the first four steps. We want to see quality
-of code over quantity of features: develop this as though it needs to be
-maintained by yourself and others for some period of time. Please do not spend
-any more than 8 hours on this challenge; we want to be respectful of your time.
+Grab the top 10 most common words from a list of files.
 
-* Write logic that takes a blob of text as a parameter and tokenizes this blob
-into words. Words are delimited by any character other than a-z, A-Z, or 0-9.
+## Installation
 
-* Write logic to track all unique words encountered and the number of times each
-was encountered. Words should be matched in a case-insensitive manner. This
-should return the top 10 words (and their counts).
+It's preferable to install these dependencies in a
+[virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/). All
+commands in this document should be executed from the root level directory of
+the project.
 
-* Provide some documentation for the code you wrote in each of the previous
-steps.
+```
+$ pip install -r requirements.txt
+```
 
-* You must test your code. Make sure you include some brief documentation on how
-to run the tests. Any collection of plain text files can be used as input, and
-we suggest you try out some free plain text books from http://www.gutenberg.org/
+## Usage
 
-All of the following steps are optional. You may complete any number of them,
-or none at all.
+Indexer accepts one or more files as input, and returns a dictionary with the
+top ten words with their frequencies.
 
-* Write a command-line interface for your indexer that takes the filenames of
-text blobs as arguments, and then prints the top 10 words across all files to
-standard output.
+```
+$ python indexer/indexer.py FILE ...
 
-* Use source control to help you develop this software. If possible, we'd like
-you to post this on a public platform like GitHub or Bitbucket and then send us
-a link.
+{'to': 809, 'the': 1818, 'she': 553, 'said': 462, 'of': 631, 'you': 481, 'and':
+940, 'i': 545, 'a': 690, 'it': 610}
+```
 
-* Ensure that you can run your code in places other than your own development
-environment, and provide installation/deployment instructions. Provide
-documentation that walks the user through using your application.
 
-* Extend your application execute concurrently. You may choose to support a
-fixed, configurable number of workers or to allow changing the number of
-workers dynamically.
+## Development
 
-* Extend your application to be distributed, such that workers can run on
-separate machines from each other. Hint: you may leverage existing open source
-technologies to accomplish this.
+To install development dependencies locally:
+```
+pip install -r requirements-dev.txt
+```
+
+To test locally:
+```
+tox
+```
+
+Tests will automatically run on [Travis
+CI](https://travis-ci.com/jondelmil/rackspace-interview) once pushed to GitHub.
+
+This project is currently configured to run on Python 2.7, Python 3.4, and
+Python 3.5.

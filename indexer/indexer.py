@@ -72,6 +72,8 @@ def index(*files):
         word_list += tokenize(text)
     return tabulate(word_list)
 
+
 if __name__ == "__main__":
     args = docopt(__doc__)
     print(index(*args['FILE']))
+
