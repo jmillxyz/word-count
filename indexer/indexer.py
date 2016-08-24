@@ -1,4 +1,13 @@
+"""Indexer.
+
+Usage:
+    indexer.py [-h] [FILE ...]
+
+-h --help   show this
+
+"""
 import re
+from docopt import docopt
 from collections import Counter
 
 
@@ -30,7 +39,7 @@ def tabulate(word_list):
 
     Counter's most_common method returns the n most common elements and
     their counts, which is particularly useful. However, it returns a list,
-    whereas the dict looks better.
+    whereas a dict looks cleaner.
 
     Args:
         word_list (list): A list of words.
@@ -43,8 +52,26 @@ def tabulate(word_list):
     return dict(Counter(w.lower() for w in word_list).most_common(10))
 
 
-def index(textfile):
-    f = open(textfile)
-    text = f.read()
-    return tabulate(tokenize(text))
+def index(*files):
+    """Tokenize and tabulate the 10 most common words from a list of text files.
 
+    Build up a common word_list by tokenizing each file, combine the lists,
+    then tabulate the entire result.
+
+    Args:
+        files (*args): The path (including filename) to one or more text files.
+
+    Returns:
+        A dictionary of the top 10 instances of a given word, ignoring case,
+        ordered by frequency.
+    """
+    word_list = []
+    for textfile in files:
+        f = open(textfile)
+        text = f.read()
+        word_list += tokenize(text)
+    return tabulate(word_list)
+
+if __name__ == "__main__":
+    args = docopt(__doc__)
+    print(index(*args['FILE']))

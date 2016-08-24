@@ -11,7 +11,7 @@ def test_sherlock_holmes():
                                                   'a': 2700, 'to': 2823}
 
 def test_alice():
-    assert index('tests/alice.txt') =={'it': 610, 'and': 940, 'a': 690,
+    assert index('tests/alice.txt') == {'it': 610, 'and': 940, 'a': 690,
                                        'to': 809, 'i': 545, 'you': 481,
                                        'the': 1818, 'she': 553, 'said': 462,
                                        'of': 631}
