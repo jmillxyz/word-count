@@ -41,3 +41,10 @@ def tabulate(word_list):
 
     """
     return dict(Counter(w.lower() for w in word_list).most_common(10))
+
+
+def index(textfile):
+    f = open(textfile)
+    text = f.read()
+    return tabulate(tokenize(text))
+
