@@ -4,10 +4,11 @@ from indexer.indexer import index
 
 
 def test_sherlock_holmes():
-    assert index('tests/sherlock_holmes.txt') == {'i': 3038, 'in': 1823, 'that': 1767,
-                                            'of': 2778, 'it': 1749, 'and': 3088,
-                                            'you': 1572, 'the': 5810, 'a': 2700,
-                                            'to': 2823}
+    assert index('tests/sherlock_holmes.txt') == {'i': 3038, 'in': 1823,
+                                                  'that': 1767, 'of': 2778,
+                                                  'it': 1749, 'and': 3088,
+                                                  'you': 1572, 'the': 5810,
+                                                  'a': 2700, 'to': 2823}
 
 def test_alice():
     assert index('tests/alice.txt') =={'it': 610, 'and': 940, 'a': 690,
