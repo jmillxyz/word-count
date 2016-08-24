@@ -17,11 +17,11 @@ def tokenize(text):
         A list of every word from the input.
 
     """
-
     return re.split(pattern=r'[\W_]+', string=text)
 
-def count_uniques(word_list):
-    """Track unique instances of each word from a list, ignoring case.
+
+def tabulate(word_list):
+    """Track and count unique instances of each word from a list, ignoring case.
 
     Counter is a dictionary subclass for "counting hashable objects", in
     this case words. Since the spec doesn't explicitly say to convert the
@@ -41,4 +41,3 @@ def count_uniques(word_list):
 
     """
     return dict(Counter(w.lower() for w in word_list).most_common(10))
-
