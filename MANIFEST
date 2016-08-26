@@ -2,3 +2,4 @@
 setup.py
 indexer/__init__.py
 indexer/indexer.py
+indexer/mapper.py

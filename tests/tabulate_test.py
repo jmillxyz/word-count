@@ -1,6 +1,7 @@
 import pytest
 
 from indexer.indexer import tabulate
+from indexer.mapper import Mapper
 
 
 def test_uniques_for_same_word():

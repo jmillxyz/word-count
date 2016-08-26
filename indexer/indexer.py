@@ -1,4 +1,6 @@
-"""Indexer.
+"""Common words indexer.
+
+Grab the 10 most common words from one or more files!
 
 Usage:
     indexer.py [-h] [FILE ...]
@@ -7,9 +9,31 @@ Usage:
 
 """
 import re
-from docopt import docopt
+import multiprocessing
+from itertools import chain
 from collections import Counter
 
+from docopt import docopt
+
+from .mapper import Mapper
+
+
+def read(filename):
+    """Read a file.
+
+    Notify the user via console which process is reading each filename.
+
+    Args:
+        filename (str): Path to a file. Only tested with UTF-8 text so far...
+
+    Returns:
+        A string containing all of the text in that file.
+
+    """
+    print(multiprocessing.current_process().name, 'reading', filename)
+    f = open(filename, 'r')
+    text = f.read()
+    return text
 
 def tokenize(text):
     """Tokenize a blob of text.
@@ -29,51 +53,45 @@ def tokenize(text):
     return re.split(pattern=r'[\W_]+', string=text)
 
 
-def tabulate(word_list):
+def tabulate(word_list, num_words=10):
     """Track and count unique instances of each word from a list, ignoring case.
 
-    Counter is a dictionary subclass for "counting hashable objects", in
-    this case words. Since the spec doesn't explicitly say to convert the
-    words in the list to case insensitive, we shouldn't mutate them
-    permanently.
-
-    Counter's most_common method returns the n most common elements and
-    their counts, which is particularly useful. However, it returns a list,
-    whereas a dict looks cleaner.
+    If num_words is not provided, default to 10.
 
     Args:
         word_list (list): A list of words.
 
     Returns:
-        A dictionary of the top 10 instances of a given word, ignoring case,
-        ordered by frequency.
+        An unsorted dictionary of the top num_words instances of a given word,
+        ignoring case.
 
     """
-    return dict(Counter(w.lower() for w in word_list).most_common(10))
+    return dict(Counter(w.lower() for w in word_list).most_common(num_words))
 
 
-def index(*files):
-    """Tokenize and tabulate the 10 most common words from a list of text files.
-
-    Build up a common word_list by tokenizing each file, combine the lists,
-    then tabulate the entire result.
+def flatten(word_list):
+    """Flatten 2-D list into a single list.
 
     Args:
-        files (*args): The path (including filename) to one or more text files.
+        word_list (list): A list of word lists.
 
     Returns:
-        A dictionary of the top 10 instances of a given word, ignoring case,
-        ordered by frequency.
+        A flattened/unrolled list with all of the same inner elements.
+
     """
-    word_list = []
-    for textfile in files:
-        f = open(textfile)
-        text = f.read()
-        word_list += tokenize(text)
-    return tabulate(word_list)
+    return list(chain.from_iterable(word_list))
+
+def main():
+    args = docopt(__doc__)
+    files = args['FILE']
+    mapper = Mapper(read, tokenize)
+    all_word_lists = mapper(files)
+
+    flattened_word_list = flatten(all_word_lists)
+
+    top10_words = tabulate(flattened_word_list, 10)
+    print(top10_words)
 
 
 if __name__ == "__main__":
-    args = docopt(__doc__)
-    print(index(*args['FILE']))
-
+    main()
