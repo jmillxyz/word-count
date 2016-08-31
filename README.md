@@ -21,12 +21,12 @@ Indexer accepts one or more files as input, and returns a dictionary with the
 top ten words with their frequencies.
 
 ```
-$ python indexer/indexer.py FILE ...
+$ python -m indexer FILE ...
 ```
 
 For example, to see most common words in _Alice in Wonderland_:
 ```
-$ python indexer/indexer.py tests/books/alice.txt
+$ python -m indexer tests/books/alice.txt
 {'to': 809, 'the': 1818, 'she': 553, 'said': 462, 'of': 631, 'you': 481, 'and':
 940, 'i': 545, 'a': 690, 'it': 610}
 ```

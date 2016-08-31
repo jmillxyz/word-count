@@ -30,7 +30,6 @@ def read(filename):
         A string containing all of the text in that file.
 
     """
-    print(multiprocessing.current_process().name, 'reading', filename)
     f = open(filename, 'r')
     text = f.read()
     return text

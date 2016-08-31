@@ -30,5 +30,7 @@ class Mapper:
         """
         prep_results = self.pool.map(self.prep_fn, inputs)
         map_results = self.pool.map(self.map_fn, prep_results)
+        self.pool.close()
+        self.pool.join()
         return map_results
 
