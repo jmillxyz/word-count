@@ -17,11 +17,11 @@ $ pip install -r requirements.txt
 
 ## Usage
 
-Indexer accepts one or more files as input, and returns a dictionary with the
-top ten words with their frequencies.
+Indexer accepts one or more paths to files as input, and returns a dictionary
+containing the top ten words with their frequencies.
 
 ```
-$ python -m indexer FILE ...
+$ python -m indexer FILE FILE2 ...
 ```
 
 For example, to see most common words in _Alice in Wonderland_:
@@ -47,5 +47,12 @@ tox
 Tests will automatically run on [Travis
 CI](https://travis-ci.com/jondelmil/rackspace-interview) once pushed to GitHub.
 
-This project is currently configured to run on Python 2.7, Python 3.4, and
-Python 3.5.
+This project will run on Python 2.7, Python 3.4, and Python 3.5.
+
+## Rackspace Notes
+
+This project has been extended to execute concurrently using Python's
+`multiprocessing` library (specifically the `Pool` class), which by default will
+use up to the host's max number of CPU cores as the number of workers (but no
+more than the number of text files sent to be indexed).
+

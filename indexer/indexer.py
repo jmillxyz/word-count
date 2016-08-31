@@ -31,6 +31,8 @@ def read(filename):
 
     """
     f = open(filename, 'r')
+    # show the process and which file it's reading
+    # print(multiprocessing.current_process(), 'reading', filename)
     text = f.read()
     return text
 
@@ -51,7 +53,6 @@ def tokenize(text):
     """
     return re.split(pattern=r'[\W_]+', string=text)
 
-
 def tabulate(word_list, num_words=10):
     """Track and count unique instances of each word from a list, ignoring case.
 
@@ -66,7 +67,6 @@ def tabulate(word_list, num_words=10):
 
     """
     return dict(Counter(w.lower() for w in word_list).most_common(num_words))
-
 
 def flatten(word_list):
     """Flatten 2-D list into a single list.
@@ -90,7 +90,6 @@ def main():
 
     top10_words = tabulate(flattened_word_list, 10)
     print(top10_words)
-
 
 if __name__ == "__main__":
     main()
