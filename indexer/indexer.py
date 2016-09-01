@@ -91,6 +91,3 @@ def main():
     top10_words = tabulate(flattened_word_list, 10)
     print(top10_words)
 
-if __name__ == "__main__":
-    main()
-
