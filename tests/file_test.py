@@ -15,14 +15,11 @@ def transform_function_output(book_title):
         A dictionary for comparison to previously-measured word frequencies.
     """
     cmd = "{:s} -m indexer {:s}".format(executable, book_title)
-
     result = subprocess.check_output(cmd.split())
     result = ''.join(result.decode())               # convert tuple of bytestrings to a string
     result = result.strip('\n').replace('\'','\"')  # remove newline, replace double quotes w/ single quotes
     frequency_dict = json.loads(result)             # convert string to python dict
-
     return frequency_dict
-
 
 def test_sherlock_holmes_from_script():
     result = transform_function_output('tests/books/sherlock_holmes.txt')

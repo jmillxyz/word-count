@@ -3,12 +3,18 @@
 Grab the 10 most common words from one or more files!
 
 Usage:
-    indexer.py [-h] [FILE ...]
+  indexer [--workers <w> | -w <w>] <file>...
+  indexer (-h | --help)
+  indexer (-v | --version)
 
--h --help   show this
+Options:
+  -w <w>, --workers <w>  Specify number of possible workers, up to host's max. None means to use up to all cores. [default: 0]
+  -v, --version          Show version of this program.
+  -h --help              Show this screen.
 
 """
 import re
+import argparse
 import multiprocessing
 from itertools import chain
 from collections import Counter
@@ -24,14 +30,14 @@ def read(filename):
     Notify the user via console which process is reading each filename.
 
     Args:
-        filename (str): Path to a file. Only tested with UTF-8 text so far...
+        filename (str): Path to a file.
 
     Returns:
         A string containing all of the text in that file.
 
     """
     f = open(filename, 'r')
-    # show the process and which file it's reading
+    ## show the process and which file it's reading
     # print(multiprocessing.current_process(), 'reading', filename)
     text = f.read()
     return text
@@ -81,13 +87,20 @@ def flatten(word_list):
     return list(chain.from_iterable(word_list))
 
 def main():
-    args = docopt(__doc__)
-    files = args['FILE']
-    mapper = Mapper(read, tokenize)
+    """Main program entry point.
+
+    Parse command line arguments, kick off tokenize/tabulate/flatten commands,
+    and print result.
+    """
+    args = docopt(__doc__, version=0.1)
+    files = args['<file>']
+    try:
+        num_workers = int(args['--workers'])
+        mapper = Mapper(read, tokenize, num_workers)
+    except:
+        mapper = Mapper(read, tokenize)
     all_word_lists = mapper(files)
-
     flattened_word_list = flatten(all_word_lists)
-
     top10_words = tabulate(flattened_word_list, 10)
     print(top10_words)
 
