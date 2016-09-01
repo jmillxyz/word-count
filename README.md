@@ -1,6 +1,7 @@
 # Indexer.py
 
-[![Build Status](https://travis-ci.com/jondelmil/rackspace-interview.svg?token=DWs7Yq7X3tMvJwqPZewY&branch=master)](https://travis-ci.com/jondelmil/rackspace-interview)
+[![Build Status](https://travis-ci.org/jondelmil/word-count.svg?branch=master)](https://travis-ci.org/jondelmil/word-count)
+[![Coverage Status](https://coveralls.io/repos/github/jondelmil/word-count/badge.svg?branch=master)](https://coveralls.io/github/jondelmil/word-count?branch=master)
 
 Grab the top 10 most common words from a list of files.
 
