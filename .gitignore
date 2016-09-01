@@ -11,3 +11,5 @@ __pycache__/
 # Tox cache
 .tox/
 
+# Code coverage
+.coverage
