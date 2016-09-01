@@ -3,7 +3,8 @@
 [![Build Status](https://travis-ci.org/jondelmil/word-count.svg?branch=master)](https://travis-ci.org/jondelmil/word-count)
 [![Coverage Status](https://coveralls.io/repos/github/jondelmil/word-count/badge.svg?branch=master)](https://coveralls.io/github/jondelmil/word-count?branch=master)
 
-Grab the top 10 most common words from a list of files.
+Grab the top 10 most common words from a list of files. Specific problem
+instuctions are located in `instructions.md`.
 
 ## Installation
 
@@ -42,10 +43,15 @@ $ python -m indexer tests/books/alice.txt tests/books/sabotage.txt
 ```
 
 ### Advanced Usage
+This project has been extended to execute concurrently using Python's
+`multiprocessing` library (specifically the `Pool` class), which by default will
+use up to the host's max number of CPU cores as the number of workers (but no
+more than the number of text files sent to be indexed).
 
 You can also specify the number of workers to use for a given task with the
-`-w <w>` or `--workers <w>` options, where `<w>` is an integer. Keep in mind that
-there will only be as many workers instantiated as there are files to parse.
+`-w <w>` or `--workers <w>` options, where `<w>` is an integer. Keep in mind
+that there will only be as many workers instantiated as there are files to
+parse.
 
 For example,
 ```
@@ -93,14 +99,7 @@ tox
 ```
 
 Tests will automatically run on [Travis
-CI](https://travis-ci.com/jondelmil/rackspace-interview) once pushed to GitHub.
+CI](https://travis-ci.org/jondelmil/word-count) once pushed to GitHub.
 
 This project will run on Python 2.7, Python 3.4, and Python 3.5.
-
-## Rackspace Notes
-
-This project has been extended to execute concurrently using Python's
-`multiprocessing` library (specifically the `Pool` class), which by default will
-use up to the host's max number of CPU cores as the number of workers (but no
-more than the number of text files sent to be indexed).
 
